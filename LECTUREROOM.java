@@ -1,0 +1,110 @@
+// Question One
+
+// A java program that allows the Victoria University’s Resident Manager of Market Plaza to control a Lecture Room,Import both the Lecture Room class and an Easy Reader and use the two together to allow the user to make a selection from the provided Main Menu
+
+import java.util.Scanner;
+
+public class LectureRoomManager {
+
+    // The LectureRoom class for my program with different attributes
+    static class LectureRoom {
+        private int students;
+        private boolean[] lights;
+
+        public LectureRoom() {
+            students = 0;
+            lights = new boolean[3]; // The 3 lights 1,2 and 3
+        }
+
+        public void addStudents(int count) {
+            students += count;
+        }
+
+        public void removeStudents(int count) {
+            if (count > students) {
+                students = 0;
+            } else {
+                students -= count;
+            }
+        }
+
+        public void turnOnLight(int lightNumber) {
+            if (lightNumber >= 1 && lightNumber <= 3) {
+                lights[lightNumber - 1] = true;
+            } else {
+                System.out.println("Invalid light number. Must be between 1 and 3.");
+            }
+        }
+
+        public void turnOffLight(int lightNumber) {
+            if (lightNumber >= 1 && lightNumber <= 3) {
+                lights[lightNumber - 1] = false;
+            } else {
+                System.out.println("Invalid light number. Must be between 1 and 3.");
+            }
+        }
+
+        public void displayStatus() {
+            System.out.println("Number of students: " + students);
+            System.out.print("Lights status: ");
+            for (int i = 0; i < lights.length; i++) {
+                System.out.print((lights[i] ? "On " : "Off ") + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        LectureRoom room = new LectureRoom();
+        char choice;
+
+        do {
+            System.out.println("Main Menu:");
+            System.out.println("W - Add students");
+            System.out.println("X - Remove students");
+            System.out.println("Y - Turn on light");
+            System.out.println("Z - Turn off light");
+            System.out.println("Q - Quit");
+            System.out.print("Enter your choice: ");
+            choice = scanner.next().charAt(0);
+
+            switch (choice) {
+                case 'W':
+                    System.out.print("Enter the number of students to add: ");
+                    int addCount = scanner.nextInt();
+                    room.addStudents(addCount);
+                    break;
+                case 'X':
+                    System.out.print("Enter the number of students to remove: ");
+                    int removeCount = scanner.nextInt();
+                    room.removeStudents(removeCount);
+                    break;
+                case 'Y':
+                    System.out.print("Enter the light number to turn on (1, 2, or 3): ");
+                    int lightOn = scanner.nextInt();
+                    room.turnOnLight(lightOn);
+                    break;
+                case 'Z':
+                    System.out.print("Enter the light number to turn off (1, 2, or 3): ");
+                    int lightOff = scanner.nextInt();
+                    room.turnOffLight(lightOff);
+                    break;
+                case 'Q':
+                    System.out.println("Exiting program...");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+            }
+
+            // Invoking the method to display the satus of the room after each operation
+            
+            room.displayStatus();
+
+        } while (choice != 'Q');
+
+        scanner.close();
+    }
+}
+//END OF MY PROGRAM
